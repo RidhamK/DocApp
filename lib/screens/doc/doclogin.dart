@@ -13,9 +13,7 @@ class Doclogin extends StatefulWidget {
 }
 
 class _DocloginState extends State<Doclogin> {
-  final _userNameController = TextEditingController();
   final _emailController = TextEditingController();
-  final _mobileNUmberController = TextEditingController();
   final _passController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey();
@@ -28,9 +26,7 @@ class _DocloginState extends State<Doclogin> {
   };
 
   final Map<String, String> _authSignUpData = {
-    'username': '',
     'email': '',
-    'number': '',
     'password': '',
   };
 
@@ -39,35 +35,6 @@ class _DocloginState extends State<Doclogin> {
       return;
     }
     _formKey.currentState!.save();
-    if (!_isLogin) {
-      final id = _authLoginData['email']! + _authLoginData['password']!;
-      final valid = Provider.of<AuthenticationData>(context, listen: false)
-          .login(id, false);
-      valid
-          ? Navigator.of(context)
-              .pushReplacementNamed(DocScreen.routeName, arguments: valid)
-          : ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Cant not login check details'),
-              ),
-            );
-    } else {
-      final valid =
-          Provider.of<AuthenticationData>(context, listen: false).signUp(
-        _authSignUpData['username']!,
-        _authSignUpData['email']!,
-        _authSignUpData['number']!,
-        _authSignUpData['password']!,
-      );
-      valid
-          ? Navigator.of(context)
-              .pushReplacementNamed(DocScreen.routeName, arguments: valid)
-          : ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Can not  SignUp Check Detail'),
-              ),
-            );
-    }
   }
 
   @override
@@ -86,23 +53,6 @@ class _DocloginState extends State<Doclogin> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    if (_isLogin)
-                      TextFormField(
-                        key: const ValueKey('username'),
-                        controller: _userNameController,
-                        decoration: const InputDecoration(
-                          labelText: 'Username',
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty || value.length < 4) {
-                            return 'Enter minimum 4 characters';
-                          }
-                          return null;
-                        },
-                        onSaved: (newValue) {
-                          _authSignUpData['userName'] = newValue!;
-                        },
-                      ),
                     TextFormField(
                       key: const ValueKey('email'),
                       controller: _emailController,
@@ -118,23 +68,6 @@ class _DocloginState extends State<Doclogin> {
                         _authSignUpData['email'] = newValue;
                       },
                     ),
-                    if (_isLogin)
-                      TextFormField(
-                        key: const ValueKey('number'),
-                        controller: _mobileNUmberController,
-                        decoration:
-                            const InputDecoration(labelText: 'Mobile Number'),
-                        keyboardType: TextInputType.number,
-                        validator: (value) {
-                          if (value!.length != 10) {
-                            return 'Enter Valid Number';
-                          }
-                          return null;
-                        },
-                        onSaved: (newValue) {
-                          _authSignUpData['number'] = newValue!;
-                        },
-                      ),
                     TextFormField(
                       key: const ValueKey('password'),
                       controller: _passController,
@@ -149,32 +82,11 @@ class _DocloginState extends State<Doclogin> {
                         _authSignUpData['password'] = newValue;
                       },
                     ),
-                    if (_isLogin)
-                      TextFormField(
-                        key: const ValueKey('conformpassword'),
-                        decoration: const InputDecoration(
-                            labelText: 'Confirm Password'),
-                        validator: (value) {
-                          if (_passController.text != value) {
-                            return 'Password does not match';
-                          }
-                          return null;
-                        },
-                      ),
                     ElevatedButton(
                       onPressed: () {
                         _submit();
                       },
-                      child: Text(_isLogin ? 'Signup' : 'Login'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        setState(() {
-                          _isLogin = !_isLogin;
-                        });
-                      },
-                      child:
-                          Text(_isLogin ? 'Have Account ?' : 'Create Account'),
+                      child: Text('Login'),
                     ),
                     TextButton(
                       onPressed: () {

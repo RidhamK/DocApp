@@ -16,12 +16,12 @@ class _PatientScreenState extends State<PatientScreen> {
         appBar: AppBar(
           bottom: const TabBar(
             tabs: [
-              Tab(icon: Icon(Icons.directions_car)),
-              Tab(icon: Icon(Icons.directions_transit)),
-              Tab(icon: Icon(Icons.directions_bike)),
+              Tab(icon: Icon(Icons.search)),
+              Tab(icon: Icon(Icons.search)),
+              Tab(icon: Icon(Icons.portrait)),
             ],
           ),
-          title: const Text('Tabs Demo'),
+          title: const Text('Welcome'),
         ),
       ),
     );

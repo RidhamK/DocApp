@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:repolab/screens/doc/doclogin.dart';
 import 'package:repolab/screens/doc/doctor.dart';
 import 'package:repolab/screens/patient/patientlogin.dart';
 
@@ -25,7 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
             GridTile(
               child: ElevatedButton(
                   onPressed: () =>
-                      Navigator.of(context).pushNamed(DocScreen.routeName),
+                      Navigator.of(context).pushNamed(Doclogin.routeName),
                   child: Text('Doctor')),
             ),
             GridTile(
